@@ -4,13 +4,13 @@ import pygame as pygame
 pygame.init()                                 #start up dat pygame
 pygame.display.set_caption('Puzzler')
 clock = pygame.time.Clock()                   #for framerate or something? still not very sure
-Screen = pygame.display.set_mode([600, 600])  #making the window
+Screen = pygame.display.set_mode([561, 561])  #making the window
 Done = False                                  #variable to keep track if window is open
 MapSize = 10                                  #how many tiles in either direction of grid
 
 TileWidth = 55                                #pixel sizes for grid squares
 TileHeight = 55
-TileMargin = 4.5
+TileMargin = 1
 
 BLACK = (0, 0, 0)                             #some color definitions
 WHITE = (255, 255, 255)
@@ -151,12 +151,12 @@ while not Done:     #Main pygame loop
             if event.key == pygame.K_DOWN:
                 Map.Hero.Move("DOWN")
 
-    Screen.fill(BLACK)
+    Screen.fill(WHITE)
 
     for Row in range(MapSize):           # Drawing grid
         for Column in range(MapSize):
             for i in range(0, len(Map.Grid[Column][Row])):
-                Color = WHITE
+                Color = BLACK
                 if len(Map.Grid[Column][Row]) == 2:
                     Color = GREEN
                 if Map.Grid[Column][Row][i].Name == "Hero":
