@@ -12,8 +12,16 @@ WIDTH = 768   # 16 * 64 or 32 * 32 or 64 * 16
 HEIGHT = 640  # 16 * 48 or 32 * 24 or 64 * 12
 FPS = 60
 TITLE = "Puzzler"
-BGCOLOR = DARKGREY
+BGCOLOR = (0, 153, 0)
 
 TILESIZE = 64
 GRIDWIDTH = WIDTH / TILESIZE
 GRIDHEIGHT = HEIGHT / TILESIZE
+
+
+PLAYER_IMG = 'panda3.png'
+PLAYER_COUNT = 500
+
+WALL_IMG = 'tile_456.png'
+
+GOAL_IMG = 'panda4.png'
