@@ -23,5 +23,6 @@ PLAYER_IMG = 'panda3.png'
 PLAYER_COUNT = 500
 
 WALL_IMG = 'tile_456.png'
+CORNER_IMG = 'tile_506.png'
 
 GOAL_IMG = 'panda4.png'

@@ -23,6 +23,13 @@ class Player(pg.sprite.Sprite):
                 return True
         return False
 
+    #def function collide with portal, if collide with portal then keep going that direction until collide with walls. find a way to put button push
+    #into a variable and keep pushing that button.!!!
+
+    #ALSO create new item called portal similiar to walls where this happens
+
+
+
     def update(self):
         self.rect.x = self.x * TILESIZE
         self.rect.y = self.y * TILESIZE
@@ -49,6 +56,8 @@ class Wall(pg.sprite.Sprite):
         self.y = y
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+
+
 
 class Obstacle(pg.sprite.Sprite):
     def __init__(self, game, x, y, w, h):

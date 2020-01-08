@@ -40,11 +40,11 @@ class Game:
         game_folder = path.dirname(__file__)
         img_folder = path.join(game_folder, 'images')
 
-        map_folder = path.join(game_folder, 'maps')
-        #self.map = Map(path.join(game_folder, 'map.txt'))
-        self.map = TiledMap(path.join(map_folder, 'map1.tmx'))
-        self.map_img = self.map.make_map()
-        self.map_rect = self.map_img.get_rect()
+        #map_folder = path.join(game_folder, 'maps')
+        self.map = Map(path.join(game_folder, 'map.txt'))
+        #self.map = TiledMap(path.join(map_folder, 'map1.tmx'))
+        #self.map_img = self.map.make_map()
+        #self.map_rect = self.map_img.get_rect()
 
         self.player_img = pg.image.load(path.join(img_folder, PLAYER_IMG)).convert_alpha()
         self.goal_img = pg.image.load(path.join(img_folder, GOAL_IMG)).convert_alpha()
@@ -57,19 +57,15 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.goals = pg.sprite.Group()
-        # for row, tiles in enumerate(self.map.data):  # Read the map.txt
-        #     for col, tile in enumerate(tiles):
-        #         if tile == '1':
-        #             Wall(self, col, row)
-        #         if tile == 'G':
-        #             Goal(self, col, row)
-        #         if tile == 'P':
-        #             self.player = Player(self, col, row)
-        self.player = Player(self, 1, 1)
-        Goal(self, 10, 8)
-        for tile_object in self.map.tmxdata.objects:
-            if tile_object.name == 'wall':
-                Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height) #FIXX THIS DOESNT GO THROUGH WHOLE MAP!!!!
+        for row, tiles in enumerate(self.map.data):  # Read the map.txt
+            for col, tile in enumerate(tiles):
+                if tile == '1':
+                    Wall(self, col, row)
+                if tile == 'G':
+                    Goal(self, col, row)
+                if tile == 'P':
+                    self.player = Player(self, col, row)
+
 
     def run(self):
         # game loop - set self.playing = False to end the game
@@ -87,6 +83,8 @@ class Game:
     def update(self):
         # update portion of the game loop
         self.all_sprites.update()
+
+
         if self.player.count <= 0:  # If player runs out of moves
             self.playing = False
 
@@ -101,12 +99,13 @@ class Game:
             pg.draw.line(self.screen, LIGHTGREY, (0, y), (WIDTH, y))
 
     def draw(self):
-        #self.screen.fill(BGCOLOR)
+        self.screen.fill(BGCOLOR)
 
-        self.screen.blit(self.map_img, (0,0))
 
         self.draw_grid()
         self.all_sprites.draw(self.screen)
+
+
         draw_player_count(self.screen, 10, 10, self.player.count / PLAYER_COUNT)
         pg.display.flip()
 
