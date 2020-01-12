@@ -23,11 +23,6 @@ class Player(pg.sprite.Sprite):
                 return True
         return False
 
-    #def function collide with portal, if collide with portal then keep going that direction until collide with walls. find a way to put button push
-    #into a variable and keep pushing that button.!!!
-
-    #ALSO create new item called portal similiar to walls where this happens
-
 
 
     def update(self):
@@ -39,6 +34,50 @@ class Goal(pg.sprite.Sprite):
         self.groups = game.all_sprites, game.goals
         pg.sprite.Sprite.__init__(self, self.groups)
         self.image = game.goal_img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class Portal_Down(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.portal_downs
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.image = game.portal_down_img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class Portal_Right(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.portal_rights
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.image = game.portal_right_img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class Portal_Up(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.portal_ups
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.image = game.portal_up_img
+        self.rect = self.image.get_rect()
+        self.x = x
+        self.y = y
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class Portal_Left(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.portal_lefts
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.image = game.portal_left_img
         self.rect = self.image.get_rect()
         self.x = x
         self.y = y

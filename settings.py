@@ -26,3 +26,8 @@ WALL_IMG = 'tile_456.png'
 CORNER_IMG = 'tile_506.png'
 
 GOAL_IMG = 'panda4.png'
+
+PORTAL_DOWN_IMG = 'tile_481_down.png'
+PORTAL_RIGHT_IMG = 'tile_481_right.png'
+PORTAL_UP_IMG = 'tile_481_up.png'
+PORTAL_LEFT_IMG = 'tile_481_left.png'

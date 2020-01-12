@@ -1,5 +1,6 @@
 import pygame as pg
 import sys
+from time import sleep
 import pytmx
 from os import path
 from settings import *
@@ -48,6 +49,10 @@ class Game:
 
         self.player_img = pg.image.load(path.join(img_folder, PLAYER_IMG)).convert_alpha()
         self.goal_img = pg.image.load(path.join(img_folder, GOAL_IMG)).convert_alpha()
+        self.portal_down_img = pg.image.load(path.join(img_folder, PORTAL_DOWN_IMG)).convert_alpha()
+        self.portal_right_img = pg.image.load(path.join(img_folder, PORTAL_RIGHT_IMG)).convert_alpha()
+        self.portal_up_img = pg.image.load(path.join(img_folder, PORTAL_UP_IMG)).convert_alpha()
+        self.portal_left_img = pg.image.load(path.join(img_folder, PORTAL_LEFT_IMG)).convert_alpha()
         self.wall_img = pg.image.load(path.join(img_folder, WALL_IMG)).convert_alpha()
         self.wall_img = pg.transform.scale(self.wall_img, (TILESIZE, TILESIZE))
 
@@ -57,12 +62,24 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.goals = pg.sprite.Group()
+        self.portal_downs = pg.sprite.Group()
+        self.portal_rights = pg.sprite.Group()
+        self.portal_ups = pg.sprite.Group()
+        self.portal_lefts = pg.sprite.Group()
         for row, tiles in enumerate(self.map.data):  # Read the map.txt
             for col, tile in enumerate(tiles):
                 if tile == '1':
                     Wall(self, col, row)
                 if tile == 'G':
                     Goal(self, col, row)
+                if tile == 'D':
+                    Portal_Down(self, col, row)
+                if tile == 'R':
+                    Portal_Right(self, col, row)
+                if tile == 'U':
+                    Portal_Up(self, col, row)
+                if tile == 'L':
+                    Portal_Left(self, col, row)
                 if tile == 'P':
                     self.player = Player(self, col, row)
 
@@ -91,6 +108,24 @@ class Game:
         hits = pg.sprite.spritecollide(self.player, self.goals, True)  # If player makes it to the goal
         for hit in hits:
             self.playing = False
+
+        portal_down_hits = pg.sprite.spritecollide(self.player, self.portal_downs, True)
+        portal_right_hits = pg.sprite.spritecollide(self.player, self.portal_rights, True)
+        portal_up_hits = pg.sprite.spritecollide(self.player, self.portal_ups, True)
+        portal_left_hits = pg.sprite.spritecollide(self.player, self.portal_lefts, True)
+        if portal_down_hits:
+            for i in range(0, 9):
+                self.player.move(dy=1)
+        if portal_right_hits:
+            for i in range(0, 9):
+                self.player.move(dx=1)
+        if portal_up_hits:
+            for i in range(0, 9):
+                self.player.move(dy=-1)
+        if portal_left_hits:
+            for i in range(0, 9):
+                self.player.move(dx=-1)
+
 
     def draw_grid(self):
         for x in range(0, WIDTH, TILESIZE):
