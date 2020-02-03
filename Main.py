@@ -97,6 +97,7 @@ class Game:
         self.portal_ups = pg.sprite.Group()
         self.portal_lefts = pg.sprite.Group()
         self.paused = False
+        self.fail = False
         for row, tiles in enumerate(self.map.data):  # Read the map.txt
             for col, tile in enumerate(tiles):
                 if tile == '1':
@@ -123,6 +124,8 @@ class Game:
             self.events()
             if not self.paused:
                 self.update()
+            if not self.fail:
+                self.update()
             #self.update()
             self.draw()
 
@@ -136,7 +139,8 @@ class Game:
 
 
         if self.player.count <= 0:  # If player runs out of moves
-            self.playing = False
+            self.fail = not self.fail
+            #self.playing = False
 
         hits = pg.sprite.spritecollide(self.player, self.goals, True)  # If player makes it to the goal
         for hit in hits:
@@ -180,6 +184,8 @@ class Game:
         if self.paused:
             self.screen.blit(self.dim_screen,  (0, 0))
             self.draw_text("Nice! Press space to restart.", self.title_font, 105, WHITE, WIDTH / 2, HEIGHT / 2, align="center")
+        if self.fail:
+            self.screen.blit(self.dim_screen,  (0, 0))
         pg.display.flip()
 
     def events(self):
